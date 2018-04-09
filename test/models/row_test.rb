@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FieldTest < ActiveSupport::TestCase
+class RowTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

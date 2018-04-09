@@ -12,7 +12,7 @@ class TablesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create table" do
     assert_difference('Table.count') do
-      post tables_url, params: { table: { name: @table.name, table_id: @table.table_id } }, as: :json
+      post tables_url, params: { table: { name: @table.name } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class TablesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update table" do
-    patch table_url(@table), params: { table: { name: @table.name, table_id: @table.table_id } }, as: :json
+    patch table_url(@table), params: { table: { name: @table.name } }, as: :json
     assert_response 200
   end
 

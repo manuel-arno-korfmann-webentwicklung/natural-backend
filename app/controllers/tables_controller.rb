@@ -46,6 +46,6 @@ class TablesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def table_params
-      params.require(:table).permit(:name, :table_id)
+      params.require(:table).permit(:name)
     end
 end

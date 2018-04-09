@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180408155051) do
+ActiveRecord::Schema.define(version: 20180409175800) do
+
+  create_table "columns", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.integer "table_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["table_id"], name: "index_columns_on_table_id"
+  end
 
   create_table "databases", force: :cascade do |t|
     t.string "name"
@@ -20,27 +29,23 @@ ActiveRecord::Schema.define(version: 20180408155051) do
     t.index ["project_id"], name: "index_databases_on_project_id"
   end
 
-  create_table "fields", force: :cascade do |t|
-    t.string "name"
-    t.string "type"
-    t.integer "table_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["table_id"], name: "index_fields_on_table_id"
-  end
-
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tables", force: :cascade do |t|
-    t.string "name"
+  create_table "rows", force: :cascade do |t|
     t.integer "table_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["table_id"], name: "index_tables_on_table_id"
+    t.index ["table_id"], name: "index_rows_on_table_id"
+  end
+
+  create_table "tables", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
