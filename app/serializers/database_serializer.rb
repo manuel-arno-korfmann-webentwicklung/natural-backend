@@ -1,3 +1,6 @@
 class DatabaseSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name
+
+  belongs_to :project
+  has_many :tables
 end

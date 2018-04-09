@@ -3,4 +3,6 @@ class TableSerializer < ActiveModel::Serializer
 
   has_many :rows
   has_many :columns
+
+  belongs_to :database
 end

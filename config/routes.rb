@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :row_values
   resources :tables
   resources :columns
   resources :rows
