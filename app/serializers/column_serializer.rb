@@ -1,4 +1,4 @@
 class ColumnSerializer < ActiveModel::Serializer
   attributes :id, :name, :type
-  has_one :table
+  belongs_to :table
 end

@@ -16,6 +16,7 @@ class ColumnsController < ApplicationController
   # POST /columns
   def create
     @column = Column.new(column_params)
+    Rails.logger.info(@column.inspect)
 
     if @column.save
       render json: @column, status: :created, location: @column
@@ -46,6 +47,6 @@ class ColumnsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def column_params
-      params.require(:column).permit(:name, :type, :table_id)
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:table, :name, :type])
     end
 end
