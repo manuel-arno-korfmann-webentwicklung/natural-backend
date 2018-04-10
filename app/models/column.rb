@@ -1,4 +1,4 @@
 class Column < ApplicationRecord
   belongs_to :table
-  has_many :row_values
+  has_many :row_values, dependent: :destroy
 end
