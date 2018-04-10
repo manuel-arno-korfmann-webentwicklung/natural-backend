@@ -21,7 +21,7 @@ Rows x RowValues
   * later: two-way binding
 
 DatabaseController
-  * #queries
+  * DatabaseController#queries
     * SQL payload queried against database
     * Answer is a JSON dict for SELECT statements
       * query-uuid returned as answer

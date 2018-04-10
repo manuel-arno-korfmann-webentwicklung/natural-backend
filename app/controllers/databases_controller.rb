@@ -46,6 +46,6 @@ class DatabasesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def database_params
-      params.require(:database).permit(:name, :project_id)
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:name, :project])
     end
 end

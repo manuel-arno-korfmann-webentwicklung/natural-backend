@@ -10,12 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409221313) do
+ActiveRecord::Schema.define(version: 20180409214650) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "columns", force: :cascade do |t|
     t.string "name"
     t.string "type"
-    t.integer "table_id"
+    t.bigint "table_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["table_id"], name: "index_columns_on_table_id"
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define(version: 20180409221313) do
 
   create_table "databases", force: :cascade do |t|
     t.string "name"
-    t.integer "project_id"
+    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_databases_on_project_id"
@@ -36,8 +39,8 @@ ActiveRecord::Schema.define(version: 20180409221313) do
   end
 
   create_table "row_values", force: :cascade do |t|
-    t.integer "row_id"
-    t.integer "column_id"
+    t.bigint "row_id"
+    t.bigint "column_id"
     t.text "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -46,7 +49,7 @@ ActiveRecord::Schema.define(version: 20180409221313) do
   end
 
   create_table "rows", force: :cascade do |t|
-    t.integer "table_id"
+    t.bigint "table_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["table_id"], name: "index_rows_on_table_id"
@@ -54,10 +57,16 @@ ActiveRecord::Schema.define(version: 20180409221313) do
 
   create_table "tables", force: :cascade do |t|
     t.string "name"
+    t.bigint "database_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "database_id"
     t.index ["database_id"], name: "index_tables_on_database_id"
   end
 
+  add_foreign_key "columns", "tables"
+  add_foreign_key "databases", "projects"
+  add_foreign_key "row_values", "columns"
+  add_foreign_key "row_values", "rows"
+  add_foreign_key "rows", "tables"
+  add_foreign_key "tables", "databases"
 end
