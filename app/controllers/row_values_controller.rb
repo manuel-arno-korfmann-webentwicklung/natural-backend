@@ -46,6 +46,6 @@ class RowValuesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def row_value_params
-      params.require(:row_value).permit(:row_id, :column_id, :value)
+      ActiveModelSerializers::Deserialization.jsonapi_parse(params, only: [:column, :row, :value])
     end
 end
