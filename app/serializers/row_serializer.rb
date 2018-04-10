@@ -1,4 +1,5 @@
 class RowSerializer < ActiveModel::Serializer
   attributes :id
-  has_one :table
+  belongs_to :table
+  has_many :row_values
 end
