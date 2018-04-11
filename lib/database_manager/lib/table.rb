@@ -12,8 +12,9 @@ module Natural
     def create
       connection.exec(
         """
-        \c \"#{database.identifier}\"
-        CREATE TABLE \"#{@identifier}\"
+        CREATE TABLE #{@identifier} (
+          id SERIAL
+        );
         """
       )
       self
@@ -22,7 +23,7 @@ module Natural
     def destroy
       connection.exec(
         """
-        DROP TABLE \"#{@identifier}\";
+        DROP TABLE #{@identifier};
         """
       )
     end
@@ -30,7 +31,9 @@ module Natural
     def exists?
       '1' == connection.exec(
         """
-        SELECT 1 FROM pg_database WHERE pg_database.datname = \'#{@identifier}\';
+        SELECT 1
+        FROM pg_tables
+        WHERE tablename = '#{@identifier}'
         """
       ).values[0].try(:[], 0)
     end

@@ -1,8 +1,19 @@
 module Natural
   class Connection
+    attr_accessor :db_user
+    attr_accessor :database
+
     def establish_connection
-      @connection = PG.connect(user: @db_user.username,
-                               password: @db_user.password)
+      options_hash = {
+        user: @db_user.username,
+        password: @db_user.password
+      }
+
+      if database.present?
+        options_hash.merge!({dbname: database.identifier})
+      end
+
+      @connection = PG.connect(options_hash)
     end
 
     def load_rails_database_config
@@ -14,6 +25,14 @@ module Natural
 
     def exec(*args, &block)
       @connection.exec(*args, &block)
+    end
+
+    def clone_with_database(database)
+      clone = self.class.new
+      clone.db_user = self.db_user
+      clone.database = database
+      clone.establish_connection
+      clone
     end
   end
 

@@ -8,6 +8,25 @@ module Natural
       @identifier = identifier
     end
 
+    def table(table_identifier)
+      table = Table.new(table_identifier)
+      table.connection = connection.clone_with_database(self)
+      table.database = self
+      table
+    end
+
+    def create_table(table_identifier)
+      table(table_identifier).create
+    end
+
+    def destroy_table(table_identifier)
+      table(table_identifier).destroy
+    end
+
+    def table_exists?(table_identifier)
+      table(table_identifier).exists?
+    end
+
     def create
       connection.exec(
         """

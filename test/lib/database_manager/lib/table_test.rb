@@ -20,9 +20,9 @@ describe Natural::Table do
 
   describe 'destroy' do
     it 'destroys a table' do
-      @test_db.create_table('test')
+      table = @test_db.create_table('test')
       @test_db.destroy_table('test')
-      @test_db.table_exists?('test').must_equal true
+      @test_db.table_exists?('test').must_equal false
     end
   end
 end

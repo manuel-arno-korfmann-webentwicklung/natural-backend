@@ -19,6 +19,6 @@ class Database < ApplicationRecord
   end
 
   def trigger_db_destruction
-    DestroyDatabaseJob.perform_later(self)
+    DestroyDatabaseJob.perform_later(self.database_identifier)
   end
 end

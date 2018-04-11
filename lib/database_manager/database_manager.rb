@@ -30,22 +30,22 @@ module Natural
       database_user(username).exists?
     end
 
-    def create_database(identifier)
+    def database(identifier)
       database = ::Natural::Database.new(identifier)
       database.connection = connection
-      database.create
+      database
+    end
+
+    def create_database(identifier)
+      database(identifier).create
     end
 
     def destroy_database(identifier)
-      database = ::Natural::Database.new(identifier)
-      database.connection = connection
-      database.destroy
+      database(identifier).destroy
     end
 
     def database_exists?(identifier)
-      database = ::Natural::Database.new(identifier)
-      database.connection = connection
-      database.exists?
+      database(identifier).exists?
     end
   end
 end
