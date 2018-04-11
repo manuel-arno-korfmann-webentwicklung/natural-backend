@@ -16,4 +16,10 @@ module Natural
       @connection.exec(*args, &block)
     end
   end
+
+  module ConnectionProvidable
+    def self.included(base)
+      attr_accessor :connection
+    end
+  end
 end
