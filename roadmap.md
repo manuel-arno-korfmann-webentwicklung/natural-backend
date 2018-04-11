@@ -5,15 +5,15 @@ Project
   * #uuid -> Database user
 
 Database
-  * database_name (user editable later) -> db Name
+  * database_name (user-editable later) -> db Name
     * default is slugged name
 
 Table
-  * table_name (user editable later) -> table name
+  * table_name (user-editable later) -> table name
     * default is slugged name
 
 Column
-  * column_name (user editable later) -> table name
+  * column_name (user-editable later) -> table name
     * default is slugged name
 
 Rows x RowValues
