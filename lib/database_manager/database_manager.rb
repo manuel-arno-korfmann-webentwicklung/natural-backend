@@ -12,22 +12,22 @@ module Natural
       @connection.establish_connection
     end
 
-    def create_user(username, password)
+    def database_user(username, password = nil)
       database_user = ::Natural::DatabaseUser.new(username, password)
       database_user.connection = connection
-      database_user.create
+      database_user
+    end
+
+    def create_user(username, password)
+      database_user(username, password).create
     end
 
     def destroy_user(username)
-      database_user = ::Natural::DatabaseUser.new(username)
-      database_user.connection = connection
-      database_user.destroy
+      database_user(username).destroy
     end
 
     def user_exists?(username)
-      database_user = ::Natural::DatabaseUser.new(username)
-      database_user.connection = connection
-      database_user.exists?
+      database_user(username).exists?
     end
 
     def create_database(identifier)

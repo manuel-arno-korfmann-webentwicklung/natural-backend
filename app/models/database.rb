@@ -5,7 +5,7 @@ class Database < ApplicationRecord
   belongs_to :project
 
   before_validation :generate_database_identifier, on: :create
-  after_create :trigger_db_creation
+  after_commit :trigger_db_creation, on: :create
   after_destroy :trigger_db_destruction
 
  private
@@ -15,10 +15,10 @@ class Database < ApplicationRecord
   end
 
   def trigger_db_creation
-    CreateDatabaseJob.perform_later(database_identifier)
+    CreateDatabaseJob.perform_later(self)
   end
 
   def trigger_db_destruction
-    DestroyDatabaseJob.perform_later(database_identifier)
+    DestroyDatabaseJob.perform_later(self)
   end
 end

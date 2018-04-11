@@ -10,18 +10,15 @@ describe Natural::Database do
   end
 
   describe 'create' do
-    it "creates a new database database" do
+    it "creates a new database" do
       @database_manager.create_database('test')
 
       @database_manager.database_exists?('test').must_equal true
-
-      @database_manager.destroy_database('test')
     end
   end
 
   describe 'destroy' do
-    it 'destroys a database database' do
-      @database_manager = ::Natural::DatabaseManager.new
+    it 'destroys a database' do
       @database_manager.create_database('test')
       @database_manager.destroy_database('test')
 

@@ -8,6 +8,7 @@ describe Natural::DatabaseUser do
   after do
     @database_manager.destroy_database('test') rescue nil
     @database_manager.destroy_user('test') rescue nil
+    @database_manager.destroy_user('test-test') rescue nil
   end
 
   describe 'create' do
@@ -27,7 +28,7 @@ describe Natural::DatabaseUser do
 
   describe 'grant' do
     it 'grants a user all priviliges for the specififed db' do
-      db_user = @database_manager.create_user('test', 'test')
+      db_user = @database_manager.create_user('test-test', 'test')
       db = @database_manager.create_database('test')
 
       db_user.grant(db)
@@ -36,7 +37,7 @@ describe Natural::DatabaseUser do
         """
         SELECT datacl FROM pg_database WHERE datname = 'test';
         """
-      ).values[0][0].must_match /test\=CTc/
+      ).values[0][0].must_match /test-test\\\"\=CTc/
     end
   end
 end

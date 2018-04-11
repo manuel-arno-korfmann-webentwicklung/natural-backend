@@ -36,7 +36,7 @@ module Natural
     def grant(database)
       connection.exec(
         """
-        GRANT ALL PRIVILEGES ON DATABASE \"#{database.identifier}\" to #{@username};
+        GRANT ALL PRIVILEGES ON DATABASE \"#{database.identifier}\" TO \"#{@username}\";
         """
       )
     end
