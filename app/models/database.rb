@@ -4,6 +4,8 @@ class Database < ApplicationRecord
   has_many :tables, dependent: :destroy
   belongs_to :project
 
+  has_many :queries
+
   before_validation :generate_database_identifier, on: :create
   after_commit :trigger_db_creation, on: :create
   after_destroy :trigger_db_destruction
