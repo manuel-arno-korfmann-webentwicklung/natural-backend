@@ -3,6 +3,10 @@ module Natural
     attr_accessor :db_user
     attr_accessor :database
 
+    def close
+      @connection.close
+    end
+
     def establish_connection
       options_hash = {
         user: @db_user.username,

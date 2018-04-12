@@ -1,15 +1,16 @@
 
 # Database & table creation
 
-Project
-  * #uuid -> Database user
+sql escape for all inputs
+  Project
+    * #uuid -> Database user
 
-Database
-  * rename database_identifier to uuid
+  Database
+    * rename database_identifier to uuid
 
-Table
+  Table
 
-Column
+  Column
 
 Rows x RowValues
   * automatically inserted

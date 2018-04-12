@@ -5,7 +5,7 @@ describe Natural::Database do
     @database_manager = ::Natural::DatabaseManager.new
   end
 
-  teardown do
+  after do
     @database_manager.destroy_database('test') rescue nil
   end
 
