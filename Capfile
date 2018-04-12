@@ -4,11 +4,13 @@ require "capistrano/setup"
 # Include default deployment tasks
 require "capistrano/deploy"
 
+require 'capistrano/rbenv'
+
 require 'capistrano/bundler'
 require 'capistrano/rails/migrations'
 require 'capistrano/passenger'
-
-require 'capistrano/rbenv'
+require 'capistrano/sidekiq'
+require 'capistrano/sidekiq/monit'
 set :rbenv_type, :user
 set :rbenv_ruby, '2.5.1'
 

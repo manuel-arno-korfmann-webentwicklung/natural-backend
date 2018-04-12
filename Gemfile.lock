@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/seuros/capistrano-sidekiq.git
+  revision: d5027765a2ff58239a015639a27033bb0daa41f7
+  specs:
+    capistrano-sidekiq (1.0.1)
+      capistrano (>= 3.9.0)
+      sidekiq (>= 3.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -222,6 +230,7 @@ DEPENDENCIES
   capistrano-passenger
   capistrano-rails
   capistrano-rbenv
+  capistrano-sidekiq!
   listen (>= 3.0.5, < 3.2)
   minitest-spec-rails
   pg
