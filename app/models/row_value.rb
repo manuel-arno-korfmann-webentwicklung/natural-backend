@@ -9,7 +9,11 @@ class RowValue < ApplicationRecord
   private
 
    def trigger_value_insertion
-     InsertValueJob.perform_later(self)
+     if row.db_id.present?
+       UpdateValueJob.perform_later(self)
+     else
+       InsertValueJob.perform_later(self)
+     end
    end
 
    def trigger_value_update
