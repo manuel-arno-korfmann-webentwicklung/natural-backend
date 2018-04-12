@@ -66,11 +66,40 @@ module Natural
       ).values[0][0]
     end
 
+    def update_value(column_name, id, value)
+      connection.exec(
+        """
+        UPDATE \"#{@identifier}\"
+        SET \"#{column_name}\" = \'#{value}\'
+        WHERE id=#{id};
+        """
+      )
+    end
+
     def delete_value(column_name, id)
       connection.exec(
         """
         UPDATE \"#{@identifier}\"
         SET \"#{column_name}\" = NULL
+        WHERE id=#{id};
+        """
+      )
+    end
+
+    def has_row?(id)
+      connection.exec(
+        """
+        SELECT 1
+        FROM \"#{@identifier}\"
+        WHERE id=#{id};
+        """
+      ).values[0][0] == '1'
+    end
+
+    def delete_row(id)
+      connection.exec(
+        """
+        DELETE FROM \"#{@identifier}\"
         WHERE id=#{id};
         """
       )
