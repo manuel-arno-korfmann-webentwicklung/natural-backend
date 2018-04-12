@@ -11,6 +11,9 @@ gem 'sidekiq'
 
 group :development do
   gem "capistrano", "~> 3.10", require: false
+  gem 'capistrano-rails'
+  gem 'capistrano-passenger'
+  gem 'capistrano-rbenv'
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
