@@ -17,8 +17,6 @@ class QueriesController < ApplicationController
   def create
     @query = @database.queries.build(request_data: params[:sql])
     @query.instant_execution = (params[:instant] == '1')
-    Rails.logger.info(Rails.application.config.autoload_paths.inspect)
-    puts ::Natural.inspect * 100
     if @query.save
       if @query.instant_execution
         render json: { result: @query.run_query }
