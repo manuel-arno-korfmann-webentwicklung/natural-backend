@@ -1,8 +1,3 @@
-# Copyright (C) Manuel Arno Korfmann - All Rights Reserved
-# Unauthorized copying of this file, or parts of this file, via any medium is strictly prohibited
-# Proprietary and confidential
-# Written by Manuel Arno Korfmann <manu@korfmann.info>, April 2018
-
 class QueriesController < ApplicationController
   before_action :fetch_database
   before_action :fetch_query, only: [:show, :destroy]
