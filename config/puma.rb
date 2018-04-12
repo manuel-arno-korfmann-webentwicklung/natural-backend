@@ -1,3 +1,8 @@
+# Copyright (C) Manuel Arno Korfmann - All Rights Reserved
+# Unauthorized copying of this file, or parts of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+# Written by Manuel Arno Korfmann <manu@korfmann.info>, April 2018
+
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match

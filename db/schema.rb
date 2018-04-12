@@ -1,3 +1,8 @@
+# Copyright (C) Manuel Arno Korfmann - All Rights Reserved
+# Unauthorized copying of this file, or parts of this file, via any medium is strictly prohibited
+# Proprietary and confidential
+# Written by Manuel Arno Korfmann <manu@korfmann.info>, April 2018
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
