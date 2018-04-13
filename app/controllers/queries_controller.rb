@@ -19,7 +19,7 @@ class QueriesController < ApplicationController
     @query.instant_execution = (params[:instant] == '1')
     if @query.save
       if @query.instant_execution
-        render json: { result: @query.run_query }
+        render json: { result: @query.run_query.to_json }
       else
         render json: { id: @query.id }, status: :created, location: [@database, @query]
       end
