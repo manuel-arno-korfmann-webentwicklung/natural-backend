@@ -12,7 +12,7 @@ class RunQueryJob < ApplicationJob
 
     connection.establish_connection
 
-    result = connection.exec(query.request_data).values.to_json
+    result = connection.exec(query.request_data).values
     query.update_attribute(:response_data, result)
 
     connection.close

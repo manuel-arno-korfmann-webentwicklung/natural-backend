@@ -1,4 +1,6 @@
 class Query < ApplicationRecord
+  serialize :response_data
+  
   attr_accessor :instant_execution
   belongs_to :database
   after_commit :trigger_run_query, on: :create
