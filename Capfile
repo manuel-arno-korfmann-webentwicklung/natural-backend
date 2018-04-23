@@ -11,6 +11,8 @@ require 'capistrano/rails/migrations'
 require 'capistrano/passenger'
 require 'capistrano/sidekiq'
 require 'capistrano/sidekiq/monit'
+require "whenever/capistrano"
+
 set :rbenv_type, :user
 set :rbenv_ruby, '2.5.1'
 

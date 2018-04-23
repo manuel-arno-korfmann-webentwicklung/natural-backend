@@ -6,6 +6,12 @@ module Natural
       establish_default_connection
     end
 
+    def connect_to_database(database_name)
+      @connection.close
+      @connection.database = ::Natural::Database.new(database_name)
+      @connection.establish_connection
+    end
+
     def establish_default_connection
       @connection = ::Natural::Connection.new
       @connection.load_rails_database_config
