@@ -1,7 +1,7 @@
 class SyncDbJob < ApplicationJob
   queue_as :default
 
-  def perform()
+  def sync_db
     db_manager = ::Natural::DatabaseManager.new
     Table.all.each do |table|
       db_manager.connect_to_database(table.database.database_identifier)
@@ -26,6 +26,14 @@ class SyncDbJob < ApplicationJob
           RowValue.create(row: natural_row, column: column, value: value)
         end
       end
+    end
+  end
+  
+  def perform
+    RedisMutex.with_lock(:sync_db) do
+      sync_db
+    rescue RedisMutex::LockError
+      Rails.logger.debug "Another job is running, exiting ..."
     end
   end
 end

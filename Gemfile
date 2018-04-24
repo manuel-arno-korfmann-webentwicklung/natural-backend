@@ -9,6 +9,7 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'active_model_serializers'
 gem 'sidekiq'
 gem 'whenever', require: false
+gem 'redis-mutex'
 
 group :development do
   gem "capistrano", "~> 3.10", require: false
