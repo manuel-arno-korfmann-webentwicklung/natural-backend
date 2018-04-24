@@ -7,9 +7,9 @@
 #
 set :output, "/home/deploy/natural-api/shared/log/cron.log"
 
-# every 10.minutes do
-#   runner "SyncDbJob.perform_later"
-# end
+every 1.minutes do
+  runner "SyncDbJob.perform_later"
+end
 #
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
