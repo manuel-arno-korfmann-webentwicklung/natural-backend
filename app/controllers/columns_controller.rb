@@ -16,7 +16,6 @@ class ColumnsController < ApplicationController
   # POST /columns
   def create
     @column = Column.new(column_params)
-    Rails.logger.info(@column.inspect)
 
     if @column.save
       render json: @column, status: :created, location: @column
