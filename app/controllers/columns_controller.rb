@@ -15,7 +15,7 @@ class ColumnsController < ApplicationController
 
   # POST /columns
   def create
-    @column = current_user.column.build(column_params)
+    @column = current_user.columns.build(column_params)
 
     if @column.save
       render json: @column, status: :created, location: @column

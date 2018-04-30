@@ -1,4 +1,4 @@
 class ProjectSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :api_token
   has_many :databases
 end
