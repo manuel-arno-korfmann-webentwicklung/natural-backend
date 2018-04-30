@@ -1,6 +1,9 @@
 require 'securerandom'
 class Project < ApplicationRecord
   validates :name, :db_username, presence: true
+
+  belongs_to :user
+  
   has_many :databases, dependent: :destroy
   before_validation :generate_db_credentials, on: :create
   after_create :trigger_db_user_creation

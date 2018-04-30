@@ -3,7 +3,7 @@ class ColumnsController < ApplicationController
 
   # GET /columns
   def index
-    @columns = Column.all
+    @columns = current_user.columns.all
 
     render json: @columns
   end
@@ -15,7 +15,7 @@ class ColumnsController < ApplicationController
 
   # POST /columns
   def create
-    @column = Column.new(column_params)
+    @column = current_user.column.build(column_params)
 
     if @column.save
       render json: @column, status: :created, location: @column
@@ -41,7 +41,7 @@ class ColumnsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_column
-      @column = Column.find(params[:id])
+      @column = current_user.columns.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

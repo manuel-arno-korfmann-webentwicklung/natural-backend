@@ -1,6 +1,8 @@
 class Database < ApplicationRecord
   validates :name, uniqueness: { scope: :project }
 
+  belongs_to :user
+
   has_many :tables, dependent: :destroy
   belongs_to :project
 

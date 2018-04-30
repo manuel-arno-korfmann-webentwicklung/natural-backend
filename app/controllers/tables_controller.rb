@@ -3,7 +3,7 @@ class TablesController < ApplicationController
 
   # GET /tables
   def index
-    @tables = Table.all
+    @tables = current_user.tables.all
 
     render json: @tables
   end
@@ -15,7 +15,7 @@ class TablesController < ApplicationController
 
   # POST /tables
   def create
-    @table = Table.new(table_params)
+    @table = current_user.tables.build(table_params)
 
     if @table.save
       render json: @table, status: :created, location: @table
@@ -41,7 +41,7 @@ class TablesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_table
-      @table = Table.find(params[:id])
+      @table = current_user.tables.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -1,5 +1,6 @@
 class Column < ApplicationRecord
   belongs_to :table
+  belongs_to :user
   has_many :row_values, dependent: :destroy
 
   after_commit :trigger_column_creation, on: :create

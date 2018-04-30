@@ -3,7 +3,7 @@ class RowsController < ApplicationController
 
   # GET /rows
   def index
-    @rows = Row.all
+    @rows = current_user.rows.all
 
     render json: @rows
   end
@@ -15,7 +15,7 @@ class RowsController < ApplicationController
 
   # POST /rows
   def create
-    @row = Row.new(row_params)
+    @row = current_user.rows.build(row_params)
 
     if @row.save
       render json: @row, status: :created, location: @row
@@ -41,7 +41,7 @@ class RowsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_row
-      @row = Row.find(params[:id])
+      @row = current_user.rows.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
