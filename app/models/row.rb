@@ -1,5 +1,6 @@
 class Row < ApplicationRecord
   belongs_to :table
+  belongs_to :user
   has_many :row_values, dependent: :destroy
 
   after_destroy :trigger_row_deletion

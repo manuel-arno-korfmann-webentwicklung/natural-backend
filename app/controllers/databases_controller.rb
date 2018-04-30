@@ -3,7 +3,7 @@ class DatabasesController < ApplicationController
 
   # GET /databases
   def index
-    @databases = Database.all
+    @databases = current_user.databases.all
 
     render json: @databases
   end
@@ -15,7 +15,7 @@ class DatabasesController < ApplicationController
 
   # POST /databases
   def create
-    @database = Database.new(database_params)
+    @database = current_user.databases.build(database_params)
 
     if @database.save
       render json: @database, status: :created, location: @database
@@ -41,7 +41,7 @@ class DatabasesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_database
-      @database = Database.find(params[:id])
+      @database = current_user.databases.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

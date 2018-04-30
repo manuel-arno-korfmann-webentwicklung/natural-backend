@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     resources :queries
   end
   resources :projects
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+    
+  post 'token', to: 'authentication#authenticate'
 end

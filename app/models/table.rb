@@ -2,6 +2,7 @@ class Table < ApplicationRecord
   has_many :columns, dependent: :destroy
   has_many :rows, dependent: :destroy
   belongs_to :database
+  belongs_to :user
 
   after_commit :trigger_table_creation, on: :create
   before_destroy :trigger_table_destruction

@@ -1,10 +1,11 @@
 class QueriesController < ApplicationController
+  skip_before_action :authenticate_user
+  before_action :authenticate_project
   before_action :fetch_database
-  before_action :fetch_query, only: [:show, :destroy]
+  before_action :fetch_query, only: [:index, :show, :destroy]
 
   # GET /queries
   def index
-    @database = Database.find(params[:database_id])
     @queries = @database.queries.all
 
     render json: @queries
@@ -16,7 +17,7 @@ class QueriesController < ApplicationController
 
   def create
     @query = @database.queries.build(request_data: params[:sql])
-    @query.instant_execution = (params[:instant] == '1')
+    @query.instant_execution = !(params[:async] == '1')
     if @query.save
       if @query.instant_execution
         render json: { result: @query.run_query }
@@ -34,8 +35,17 @@ class QueriesController < ApplicationController
 
   private
 
+    # TODO: check if project provided by authentication token matches project of queried database
+    def authenticate_project
+      command = DecodeProjectAuthenticationTokenCommand.call(request.headers)
+      @project = command.result
+      unless @project
+        render json: { error: 'Not Authenticated' }, status: 403
+      end
+    end
+
     def fetch_database
-      @database = Database.find(params[:database_id])
+      @database = @project.databases.find(params[:database_id])
     end
 
     def fetch_query

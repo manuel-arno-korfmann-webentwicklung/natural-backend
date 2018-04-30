@@ -1,6 +1,7 @@
 class RowValue < ApplicationRecord
   belongs_to :row
   belongs_to :column
+  belongs_to :user
 
   after_commit :trigger_value_insertion, on: :create
   after_commit :trigger_value_update, on: :update

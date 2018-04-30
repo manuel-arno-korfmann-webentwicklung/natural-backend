@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412012433) do
+ActiveRecord::Schema.define(version: 20180430141537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,9 @@ ActiveRecord::Schema.define(version: 20180412012433) do
     t.bigint "table_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["table_id"], name: "index_columns_on_table_id"
+    t.index ["user_id"], name: "index_columns_on_user_id"
   end
 
   create_table "databases", force: :cascade do |t|
@@ -30,8 +32,10 @@ ActiveRecord::Schema.define(version: 20180412012433) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "database_identifier"
+    t.bigint "user_id"
     t.index ["database_identifier"], name: "index_databases_on_database_identifier", unique: true
     t.index ["project_id"], name: "index_databases_on_project_id"
+    t.index ["user_id"], name: "index_databases_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -40,6 +44,11 @@ ActiveRecord::Schema.define(version: 20180412012433) do
     t.datetime "updated_at", null: false
     t.string "db_username"
     t.string "db_password"
+    t.string "password_digest"
+    t.boolean "locked"
+    t.bigint "user_id"
+    t.string "api_token"
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "queries", force: :cascade do |t|
@@ -57,8 +66,10 @@ ActiveRecord::Schema.define(version: 20180412012433) do
     t.text "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["column_id"], name: "index_row_values_on_column_id"
     t.index ["row_id"], name: "index_row_values_on_row_id"
+    t.index ["user_id"], name: "index_row_values_on_user_id"
   end
 
   create_table "rows", force: :cascade do |t|
@@ -66,7 +77,9 @@ ActiveRecord::Schema.define(version: 20180412012433) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "db_id"
+    t.bigint "user_id"
     t.index ["table_id"], name: "index_rows_on_table_id"
+    t.index ["user_id"], name: "index_rows_on_user_id"
   end
 
   create_table "tables", force: :cascade do |t|
@@ -74,13 +87,28 @@ ActiveRecord::Schema.define(version: 20180412012433) do
     t.bigint "database_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["database_id"], name: "index_tables_on_database_id"
+    t.index ["user_id"], name: "index_tables_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "columns", "tables"
+  add_foreign_key "columns", "users"
   add_foreign_key "databases", "projects"
+  add_foreign_key "databases", "users"
+  add_foreign_key "projects", "users"
   add_foreign_key "row_values", "columns"
   add_foreign_key "row_values", "rows"
+  add_foreign_key "row_values", "users"
   add_foreign_key "rows", "tables"
+  add_foreign_key "rows", "users"
   add_foreign_key "tables", "databases"
+  add_foreign_key "tables", "users"
 end
