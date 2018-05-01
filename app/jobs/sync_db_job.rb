@@ -21,10 +21,10 @@ class SyncDbJob < ApplicationJob
         if Row.where(db_id: row_db_id).any?
           #TODO: add update action
         else
-          natural_row = Row.create(db_id: row.values_at('id')[0], table: table)
+          natural_row = Row.create(db_id: row.values_at('id')[0], table: table, user: table.user.id)
           table.columns.each do |column|
             value = row.values_at(column.name)[0]
-            RowValue.create(row: natural_row, column: column, value: value)
+            RowValue.create(row: natural_row, column: column, value: value, user: table.user.id)
           end
         end
 
