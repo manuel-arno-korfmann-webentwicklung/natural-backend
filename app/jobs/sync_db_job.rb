@@ -39,7 +39,9 @@ class SyncDbJob < ApplicationJob
 
   def perform
     RedisMutex.with_lock(:sync_db) do
-      sync_db
+      ActiveRecord::Base.logger.silence do
+        sync_db
+      end
     rescue RedisMutex::LockError
       Rails.logger.debug "Another job is running, exiting ..."
     end
