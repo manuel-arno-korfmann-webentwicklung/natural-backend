@@ -1,5 +1,6 @@
 class RunQueryJob < ApplicationJob
   queue_as :default
+  
   def exceptions_matching(&block)
     Class.new do
       def self.===(other)
@@ -9,8 +10,6 @@ class RunQueryJob < ApplicationJob
       c.instance_variable_set(:@block, block)
     end
   end
-
-
 
   def perform(query)
     db_user = ::Natural::DatabaseUser.new(query.database.project.db_username,

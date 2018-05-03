@@ -7,7 +7,7 @@
 #
 set :output, "/home/deploy/natural-api/shared/log/cron.log"
 
-every 5.minutes do
+every 1.minutes do
   runner "SyncDbJob.perform_now"
 end
 #
