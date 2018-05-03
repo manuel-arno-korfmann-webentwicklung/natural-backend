@@ -1,4 +1,6 @@
 class Table < ApplicationRecord
+  validates :name, presence: true
+
   has_many :columns, dependent: :destroy
   has_many :rows, dependent: :destroy
   belongs_to :database

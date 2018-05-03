@@ -4,6 +4,9 @@ class SyncDbJob < ApplicationJob
   def sync_db
     db_manager = ::Natural::DatabaseManager.new
     Table.all.each do |table|
+      # TODO: remove next line, after root issue is fixed (Table validation to ensure name won't be blank and data cleaning, i.e. tables with blank name)
+      next if table.name.blank?
+
       db_manager.connect_to_database(table.database.database_identifier)
 
       to_be_removed_ids = table.rows.pluck(:db_id)
