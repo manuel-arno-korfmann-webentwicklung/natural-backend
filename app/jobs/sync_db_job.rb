@@ -22,11 +22,12 @@ class SyncDbJob < ApplicationJob
         to_be_removed_ids.delete(row_db_id)
 
         if app_layer_row = Row.find_by(db_id: row_db_id)
-          table.columns.each do |column|
-            value = row.values_at(column.name)[0]
-            row_value = RowValue.find_or_create_by(row: app_layer_row, column: column, user: table.user)
-            row_value.update_attribute(:value, value)
-          end
+          # TODO: implement updating from service layer database to app layer database
+          # table.columns.each do |column|
+          #   value = row.values_at(column.name)[0]
+          #   row_value = RowValue.find_or_create_by(row: app_layer_row, column: column, user: table.user)
+          #   row_value.update_attribute(:value, value)
+          # end
         else
           app_layer_row = Row.create(db_id: row.values_at('id')[0], table: table, user: table.user)
           table.columns.each do |column|
