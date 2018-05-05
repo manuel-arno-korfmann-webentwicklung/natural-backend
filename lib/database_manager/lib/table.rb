@@ -1,5 +1,9 @@
 module Natural
   class Table
+    TYPE_IDENTIFIER_MAPPING = {
+      'varchar_255' => 'varchar(255)',
+    }
+
     include ConnectionProvidable
 
     attr_reader :identifier
@@ -43,6 +47,17 @@ module Natural
         """
         ALTER TABLE \"#{@identifier}\"
           ADD COLUMN \"#{name}\" varchar(255);
+        """
+      )
+    end
+
+    def update_column_type(name, type_identifier)
+      type = TYPE_IDENTIFIER_MAPPING[type_identifier] || type_identifier
+
+      connection.exec(
+        """
+        ALTER TABLE \"#{@identifier}\"
+          ALTER COLUMN \"#{name}\" TYPE #{type};
         """
       )
     end
