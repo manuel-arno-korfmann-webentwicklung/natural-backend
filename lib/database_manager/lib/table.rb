@@ -57,7 +57,7 @@ module Natural
       connection.exec(
         """
         ALTER TABLE \"#{@identifier}\"
-          ALTER COLUMN \"#{name}\" TYPE #{type};
+          ALTER COLUMN \"#{name}\" TYPE #{type} USING (trim(\"#{name}\" )::#{type});
         """
       )
     end
