@@ -4,7 +4,7 @@ class Column < ApplicationRecord
   has_many :row_values, dependent: :destroy
 
   after_commit :trigger_column_creation, on: :create
-  after_commit :trigger_column_type_update, on: :update
+  after_update :trigger_column_type_update
   before_destroy :trigger_column_destruction
 
   validate :invalid_column_names
@@ -27,7 +27,7 @@ class Column < ApplicationRecord
 
   def trigger_column_type_update
     if type_changed?
-      UpdateColumnTypeJob.perform_later(self)
+      UpdateColumnTypeJob.perform_later(table, name, type)
     end
   end
 
