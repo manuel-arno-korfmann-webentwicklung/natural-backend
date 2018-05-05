@@ -75,7 +75,7 @@ module Natural
       connection.exec(
         """
         INSERT INTO \"#{@identifier}\" (\"#{column_name}\")
-        VALUES ('#{value}')
+        VALUES ('#{single_quote_escape(value)}')
         RETURNING ID;
         """
       ).values[0][0]
@@ -85,10 +85,14 @@ module Natural
       connection.exec(
         """
         UPDATE \"#{@identifier}\"
-        SET \"#{column_name}\" = \'#{value}\'
+        SET \"#{column_name}\" = \'#{single_quote_escape(value)}\'
         WHERE id=#{id};
         """
       )
+    end
+
+    def single_quote_escape(string)
+      string.gsub("'", %q(\\\'))
     end
 
     def delete_value(column_name, id)
