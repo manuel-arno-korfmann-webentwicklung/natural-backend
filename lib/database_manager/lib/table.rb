@@ -92,7 +92,7 @@ module Natural
     end
 
     def single_quote_escape(string)
-      string.gsub("'", %q(\\\'))
+      string.gsub("'", %q(''))
     end
 
     def delete_value(column_name, id)
