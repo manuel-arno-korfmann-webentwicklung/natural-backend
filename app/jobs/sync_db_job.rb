@@ -21,13 +21,17 @@ class SyncDbJob < ApplicationJob
 
         to_be_removed_ids.delete(row_db_id)
 
-        if Row.where(db_id: row_db_id).any?
-          #TODO: add update action
-        else
-          natural_row = Row.create(db_id: row.values_at('id')[0], table: table, user: table.user)
+        if app_layer_row = Row.where(db_id: row_db_id).any?
           table.columns.each do |column|
             value = row.values_at(column.name)[0]
-            RowValue.create(row: natural_row, column: column, value: value, user: table.user)
+            row_value = RowValue.find_or_create_by(row: app_layer_row, column: column, user: table.user)
+            row_value.update_attribute(:value, value)
+          end
+        else
+          app_layer_row = Row.create(db_id: row.values_at('id')[0], table: table, user: table.user)
+          table.columns.each do |column|
+            value = row.values_at(column.name)[0]
+            RowValue.create(row: app_layer_row, column: column, value: value, user: table.user)
           end
         end
 
