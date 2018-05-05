@@ -21,7 +21,7 @@ class SyncDbJob < ApplicationJob
 
         to_be_removed_ids.delete(row_db_id)
 
-        if app_layer_row = Row.where(db_id: row_db_id).any?
+        if app_layer_row = Row.find_by(db_id: row_db_id)
           table.columns.each do |column|
             value = row.values_at(column.name)[0]
             row_value = RowValue.find_or_create_by(row: app_layer_row, column: column, user: table.user)
