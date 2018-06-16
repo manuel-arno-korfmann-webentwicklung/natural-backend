@@ -1,14 +1,12 @@
 class SyncDbJob < ApplicationJob
   queue_as :default
 
-  def sync_db
+  def sync_db(table = nil)
     db_manager = ::Natural::DatabaseManager.new
-    Table.all.each do |table|
-      # TODO: remove next line, after root issue is fixed (Table validation to ensure name won't be blank and data cleaning, i.e. tables with blank name)
+    (table ? Table.where(name: table) : Table.all).each do |table|
       next if table.name.blank?
 
       db_manager.connect_to_database(table.database.database_identifier)
-
       to_be_removed_ids = table.rows.pluck(:db_id)
 
       query = <<-SQL
@@ -22,24 +20,32 @@ class SyncDbJob < ApplicationJob
         to_be_removed_ids.delete(row_db_id)
 
         if app_layer_row = Row.find_by(db_id: row_db_id)
-          # TODO: implement updating from service layer database to app layer database
-          # table.columns.each do |column|
-          #   value = row.values_at(column.name)[0]
-          #   row_value = RowValue.find_or_create_by(row: app_layer_row, column: column, user: table.user)
-          #   row_value.update_attribute(:value, value)
-          # end
+          table.columns.each do |column|
+            value = row.values_at(column.name)[0]
+            row_value = RowValue.find_or_create_by(row: app_layer_row, column: column, user: table.user)
+            # TODO: find a more elegant solution than update_columns
+            # * updates_at/update_on are not updated
+            # last resort: set updated_at/update_on manually here
+            # reason for using update_columns in the first place: callback skipping
+            row_value.update_columns(value: value)
+          end
         else
+          puts "why tho?"
           app_layer_row = Row.create(db_id: row.values_at('id')[0], table: table, user: table.user)
           table.columns.each do |column|
             value = row.values_at(column.name)[0]
+            puts column.name
+            puts value
             RowValue.create(row: app_layer_row, column: column, value: value, user: table.user)
           end
         end
 
       end
-
+      #
       Row.where(db_id: to_be_removed_ids).destroy_all
     end
+
+    return nil
   end
 
   def perform
