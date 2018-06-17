@@ -20,5 +20,3 @@
 .byebug_history
 
 .ftpconfig
-
-config/initializers/bugsnag.rb
