@@ -4,7 +4,7 @@ module Natural
       'varchar_255' => 'varchar(255)',
     }
 
-    include ConnectionProvidable
+    include ::Natural::ConnectionProvidable
 
     attr_reader :identifier
     attr_accessor :database
