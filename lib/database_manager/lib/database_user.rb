@@ -1,3 +1,5 @@
+require_relative './connection.rb'
+
 module Natural
   class DatabaseUser
     include ::Natural::ConnectionProvidable
