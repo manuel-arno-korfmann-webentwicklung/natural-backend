@@ -1,6 +1,8 @@
+require_relative './connection.rb'
+
 module Natural
   class Database
-    include ConnectionProvidable
+    include ::Natural::ConnectionProvidable
 
     attr_reader :identifier
 

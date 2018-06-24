@@ -1,24 +1,24 @@
-# README
+Rails API for https://natural-db.com.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Getting started
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Clone this repository:
+```sh
+$ git clone https://github.com/MangoSmoothie101010/natural-backend.git
+````
+* Change into the app directory:
+```sh
+$ cd natural-backend
+```
+* Install dependencies:
+```sh
+$ bundle install
+```
+* Setup database:
+```sh
+$ rails db:setup
+```
+* Start the application:
+```sh
+$ rails server
+```

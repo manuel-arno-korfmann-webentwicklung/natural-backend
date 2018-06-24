@@ -1,6 +1,8 @@
+require_relative './connection.rb'
+
 module Natural
   class DatabaseUser
-    include ConnectionProvidable
+    include ::Natural::ConnectionProvidable
     attr_reader :username, :password
 
     def initialize(username, password = nil)

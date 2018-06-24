@@ -1,10 +1,12 @@
+require_relative './connection.rb'
+
 module Natural
   class Table
     TYPE_IDENTIFIER_MAPPING = {
       'varchar_255' => 'varchar(255)',
     }
 
-    include ConnectionProvidable
+    include ::Natural::ConnectionProvidable
 
     attr_reader :identifier
     attr_accessor :database
