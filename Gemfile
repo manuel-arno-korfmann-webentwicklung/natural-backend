@@ -12,6 +12,7 @@ gem 'whenever', require: false
 gem 'redis-mutex'
 gem 'bcrypt'
 gem 'jwt', github: 'jwt/ruby-jwt'
+gem 'kaminari'
 
 group :development do
   gem "capistrano", "~> 3.10", require: false
