@@ -3,7 +3,7 @@ class RowValuesController < ApplicationController
 
   # GET /row_values
   def index
-    @row_values = current_user.row_values.page(params[:page] || 1)
+    @row_values = current_user.row_values.all
 
     render json: @row_values
   end
