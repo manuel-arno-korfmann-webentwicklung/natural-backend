@@ -3,7 +3,7 @@ class RowsController < ApplicationController
 
   # GET /rows
   def index
-    @rows = current_user.rows.all
+    @rows = current_user.tables.find(params[:table_id]).rows
 
     render json: @rows
   end
