@@ -3,7 +3,7 @@ class RowsController < ApplicationController
 
   # GET /rows
   def index
-    @rows = current_user.rows.page(params[:page] || 1)
+    @rows = current_user.tables.find(params[:table_id]).rows
 
     render json: @rows
   end
