@@ -3,9 +3,14 @@ class RowsController < ApplicationController
 
   # GET /rows
   def index
-    @rows = current_user.tables.find(params[:table_id]).rows
+    @rows = current_user
+      .tables
+      .find(params[:table_id])
+      .rows
+      .page(params[:page] || 1)
+      .per(params[:per_page] || 12)
 
-    render json: @rows
+    render json: @rows, meta: { total_pages: @rows.total_pages }
   end
 
   # GET /rows/1
