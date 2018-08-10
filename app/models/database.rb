@@ -13,11 +13,12 @@ class Database < ApplicationRecord
   after_destroy :trigger_db_destruction
 
   def postgres_url
-	  "postgres://#{project.db_username}:#{project.db_password}@#{self.ip}/#{database_identifier}"
+	  "postgres://#{project.db_username}:#{project.db_password}@#{self.server_public_ip}/#{database_identifier}"
   end
 
-  def ip
-	Socket.ip_address_list.detect(&:ipv4_private?).try(:ip_address)
+  # REFACTOR: ServerInfo Service object
+  def server_public_ip
+	Socket.ip_address_list.detect { |intf| intf.ipv4? and !intf.ipv4_loopback? and !intf.ipv4_multicast? and !intf.ipv4_private? }
   end
 
  private
