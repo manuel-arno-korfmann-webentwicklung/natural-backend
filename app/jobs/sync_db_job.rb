@@ -1,7 +1,23 @@
 class SyncDbJob < ApplicationJob
   queue_as :default
+  
+  def sync_tables
+    db_manager = ::Natural::DatabaseManager.new
+    Database.all.each do |database|
+      next if database.name.blank?
 
-  def sync_db(table = nil)
+      db_manager.connect_to_database(database.database_identifier)
+      
+      existing_tables = database.tables.map(&:database_identifier)
+      db_manager.tables.each do |table|
+        unless existing_tables.include?(table.name)
+          table = database.tables.build(database_identifier: table.name, name: table.name)
+          table.save!
+        end
+      end  
+  end
+  
+  def sync_rows_and_columns(table = nil)
     db_manager = ::Natural::DatabaseManager.new
     (table ? Table.where(name: table) : Table.all).each do |table|
       next if table.name.blank?
@@ -49,12 +65,14 @@ class SyncDbJob < ApplicationJob
   end
 
   def perform
-    RedisMutex.with_lock(:sync_db) do
-      ActiveRecord::Base.logger.silence do
-        sync_db
+    %I[sync_rows_and_columns sync_tables].each do |method_name|
+      RedisMutex.with_lock(method_name) do
+        ActiveRecord::Base.logger.silence do
+          public_send(method_name)
+        end
+      rescue RedisMutex::LockError
+        Rails.logger.debug "Another job is running, exiting ..."
       end
-    rescue RedisMutex::LockError
-      Rails.logger.debug "Another job is running, exiting ..."
     end
   end
 end
