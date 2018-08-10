@@ -18,7 +18,7 @@ class Database < ApplicationRecord
 
   # REFACTOR: ServerInfo Service object
   def server_public_ip
-	Socket.ip_address_list.detect { |intf| intf.ipv4? and !intf.ipv4_loopback? and !intf.ipv4_multicast? and !intf.ipv4_private? }
+	Socket.ip_address_list.detect { |intf| intf.ipv4? and !intf.ipv4_loopback? and !intf.ipv4_multicast? and !intf.ipv4_private? }.try(:ip_address)
   end
 
  private
