@@ -12,6 +12,14 @@ class Database < ApplicationRecord
   after_commit :trigger_db_creation, on: :create
   after_destroy :trigger_db_destruction
 
+  def postgres_url
+	  "postgres://#{project.db_username}:#{project.db_password}@#{self.ip}/#{database_identifier}"
+  end
+
+  def ip
+	Socket.ip_address_list.detect(&:ipv4_private?).try(:ip_address)
+  end
+
  private
 
   def generate_database_identifier
