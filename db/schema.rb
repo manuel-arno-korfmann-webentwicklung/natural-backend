@@ -44,8 +44,6 @@ ActiveRecord::Schema.define(version: 20180430141537) do
     t.datetime "updated_at", null: false
     t.string "db_username"
     t.string "db_password"
-    t.string "password_digest"
-    t.boolean "locked"
     t.bigint "user_id"
     t.string "api_token"
     t.index ["user_id"], name: "index_projects_on_user_id"
