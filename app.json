@@ -1,0 +1,6 @@
+{
+  "name": "NaturalDB",
+  "description": "PostgreSQL Server",
+  "repository": "https://github.com/LemonAndroid/natural-backend",
+  "keywords": ["postgresql", "ember", "ruby", "rubyonrails", "rails"]
+}
