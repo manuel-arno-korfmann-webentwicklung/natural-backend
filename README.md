@@ -1,3 +1,6 @@
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+
 Rails API for https://natural-db.com.
 
 ## Getting started
