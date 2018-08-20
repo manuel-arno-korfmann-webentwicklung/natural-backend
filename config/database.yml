@@ -1,18 +1,14 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: natural
   pool: 5
-  username: natural
-  password: natural
+  url: "postgres://d82ce724-b946-4985-8282-3f187a8af032:193c98fe18af78702921230274d5f42cfc1bd506dcd95fc3a1e963f2933bd9b4466a1d87fc779c1b4de0@195.201.43.71/e0be555b-19de-40b6-bb45-7eb2cfab004b"
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: natural_test
   pool: 5
-  username: natural
-  password: natural
+  url: "postgres://d82ce724-b946-4985-8282-3f187a8af032:193c98fe18af78702921230274d5f42cfc1bd506dcd95fc3a1e963f2933bd9b4466a1d87fc779c1b4de0@195.201.43.71/80538c2e-33a4-498c-bb25-c4b71b93fd64"
 
 production:
   adapter: postgresql
