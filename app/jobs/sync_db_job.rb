@@ -15,11 +15,12 @@ class SyncDbJob < ApplicationJob
           table.save!
         end
       end  
+    end
   end
   
-  def sync_rows_and_columns(table = nil)
+  def sync_rows_and_columns(table_name = nil)
     db_manager = ::Natural::DatabaseManager.new
-    (table ? Table.where(name: table) : Table.all).each do |table|
+    (table_name ? Table.where(name: table_name) : Table.all).each do |table|
       next if table.name.blank?
 
       db_manager.connect_to_database(table.database.database_identifier)
