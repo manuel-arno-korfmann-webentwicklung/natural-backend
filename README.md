@@ -20,33 +20,32 @@ In order to make the heroku deployment work properly, a custom Amazon RDS instan
 
 ## Getting started
 
-* Clone this repository:
+1. Clone this repository:
 ```sh
 $ git clone https://github.com/LemonAndroid/natural-backend.git
 ````
 
-* Install redis
+2. Install redis
 ```sh
 $ sudo apt install redis
 ```
-* Change into the app directory:
+3. Change into the app directory:
 ```sh
 $ cd natural-backend
 ```
-* Install dependencies:
+4. Install dependencies:
 ```sh
 $ bundle install
 ```
-* Setup database:
+5. Setup database:
 ```sh
 $ bundle exec rake db:setup
 ```
-* Start the application:
+6. Start the application:
 ```sh
 $ bundle exec rails server
 ```
-
-* Start sidekiq:
+7. Start sidekiq:
 ```sh
 $ bundle exec sidekiq
 ```
