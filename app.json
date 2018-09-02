@@ -4,6 +4,6 @@
   "repository": "https://github.com/LemonAndroid/natural-backend",
   "keywords": ["postgresql", "ember", "ruby", "rubyonrails", "rails"],
   "scripts": {
-    "postdeploy": "./bin/run_migration.sh"
+    "postdeploy": "./bin/run_migrations.sh"
   }
 }
