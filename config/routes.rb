@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   resources :projects
     
   post 'token', to: 'authentication#authenticate'
+  
+  root 'ember#serve'
 end
