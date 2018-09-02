@@ -14,5 +14,15 @@
         "version": "9.5"
       }
     }
-  ]
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
+  }
 }
