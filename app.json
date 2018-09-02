@@ -5,5 +5,14 @@
   "keywords": ["postgresql", "ember", "ruby", "rubyonrails", "rails"],
   "scripts": {
     "postdeploy": "./bin/run_migrations.sh"
-  }
+  },
+  "addons": [
+    "openredis",
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "9.5"
+      }
+    }
+  ]
 }
