@@ -1,5 +1,9 @@
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/gitterHQ/gitter)
 
+## Demo
+
+https://natural-db.com.
+
 ## One-click deployments
 
 Currently looking into:
@@ -13,8 +17,6 @@ Not supported for now:
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 In order to make the heroku deployment work properly, a custom Amazon RDS instance would have to be configured. HMU in the gitter and I'll guide you through it if you want to deploy to heroku. Be aware that the Amazon RDS instance will cost money.
-
-Rails API for https://natural-db.com.
 
 ## Getting started
 
