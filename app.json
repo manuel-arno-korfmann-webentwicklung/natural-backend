@@ -7,7 +7,7 @@
     "postdeploy": "./bin/run_migrations.sh"
   },
   "addons": [
-    "openredis",
+    "heroku-redis",
     {
       "plan": "heroku-postgresql",
       "options": {
