@@ -12,23 +12,9 @@ class Table < ApplicationRecord
   def self.for_database_id(database_id)
     # Get the database associated with the database id
     db = Database.find(database_id)
-    # Get the project asscoiated with this database
-    project = Project.find(db.project_id)
-    # Get the users of the associated database
-    associated_database_user = ::Natural::DatabaseUser.new(project.db_username,project.db_password)
-    associated_database = ::Natural::Database.new(db.database_identifier)
-    connection = ::Natural::Connection.new
-    connection.db_user = associated_database_user
-    connection.database = associated_database
-     # Connect to the associated db
-    connection.establish_connection
-    associated_database.connection = connection
-     # Get all the tables  in the associated db for the associated user
-    tables = associated_database.tables(project.db_username)
-     # Close connection after query
-    connection.close
-     # Return the result
-    tables.to_a.entries
+    db_manager = ::Natural::DatabaseManager.new
+    database = db_manager.connect_to_database(db_identifier)
+    database.tables
   end
 
 
