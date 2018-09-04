@@ -1,10 +1,9 @@
 class TablesController < ApplicationController
   before_action :set_table, only: [:show, :update, :destroy]
+  before_action :get_tables, only: [:index]
 
   # GET /tables
   def index
-    @tables = current_user.tables.all
-
     render json: @tables
   end
 
@@ -39,6 +38,11 @@ class TablesController < ApplicationController
   end
 
   private
+
+    # Get tables associated with a particular db
+    def get_tables
+      @tables = Table.for_database_id(params[:db_id])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_table
       @table = current_user.tables.find(params[:id])

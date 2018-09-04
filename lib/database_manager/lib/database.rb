@@ -29,6 +29,14 @@ module Natural
       table(table_identifier).exists?
     end
 
+    def tables(associated_db_user)
+      connection.exec(
+        """
+        SELECT tablename FROM pg_catalog.pg_tables WHERE tableowner = \'#{associated_db_user}\';
+        """
+      )
+    end
+
     def create
       connection.exec(
         """
