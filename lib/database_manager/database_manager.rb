@@ -10,6 +10,8 @@ module Natural
       @connection.close
       @connection.database = ::Natural::Database.new(database_name)
       @connection.establish_connection
+      @connection.database.connection = @connection
+      @connection.database
     end
 
     def establish_default_connection

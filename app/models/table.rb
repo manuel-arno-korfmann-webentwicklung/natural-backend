@@ -12,9 +12,11 @@ class Table < ApplicationRecord
   def self.for_database_id(database_id)
     # Get the database associated with the database id
     db = Database.find(database_id)
+    # Get the project asscoiated with this database
+    project = Project.find(db.project_id)
     db_manager = ::Natural::DatabaseManager.new
-    database = db_manager.connect_to_database(db_identifier)
-    database.tables
+    database = db_manager.connect_to_database(db.database_identifier)
+    database.tables(project.db_username)
   end
 
 

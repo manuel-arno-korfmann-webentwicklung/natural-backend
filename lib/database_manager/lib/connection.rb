@@ -16,8 +16,9 @@ module Natural
       if database.present?
         options_hash.merge!({dbname: database.identifier})
       end
-
+      
       @connection = PG.connect(options_hash)
+
     end
 
     def load_rails_database_config
