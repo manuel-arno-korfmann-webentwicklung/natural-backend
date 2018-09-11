@@ -15,8 +15,8 @@ class Table < ApplicationRecord
     # Get the project asscoiated with this database
     project = Project.find(db.project_id)
     db_manager = ::Natural::DatabaseManager.new
-    database = db_manager.connect_to_database(db.database_identifier)
-    database.tables(project.db_username)
+    connection = db_manager.connect_to_database(db.database_identifier)
+    connection.database.tables(project.db_username)
   end
 
 
