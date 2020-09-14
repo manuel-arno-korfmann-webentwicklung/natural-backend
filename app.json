@@ -9,10 +9,7 @@
   "addons": [
     "heroku-redis",
     {
-      "plan": "heroku-postgresql",
-      "options": {
-        "version": "9.5"
-      }
+      "plan": "heroku-postgresql"
     }
   ],
   "formation": {
